@@ -50,7 +50,7 @@ public class StockController {
         int volume = stockService.findSumVolumeBySymbolAndDate(symbol, dateD);
         Double closingPrice = stockService.findClosingPriceBySymbolAndDate(symbol, dateD);
 
-        return new DailySummary(symbol, dateD, max, min, volume, closingPrice);
+        return new DailySummary(symbol, date, max, min, volume, closingPrice);
     }
 
 }

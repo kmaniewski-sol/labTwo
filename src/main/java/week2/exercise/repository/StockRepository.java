@@ -22,6 +22,6 @@ public interface StockRepository extends JpaRepository<Stock, Serializable> {
 
     @Query("SELECT price FROM Stock s WHERE s.symbol = :symbol AND DATE(s.date) = :date ORDER BY s.date DESC")
     List<Double> findClosingPriceBySymbolAndDate(@Param("symbol") String symbol, @Param("date") Date date);
-    
+
 }
 
