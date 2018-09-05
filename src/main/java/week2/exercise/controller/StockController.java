@@ -9,6 +9,8 @@ import week2.exercise.service.StockService;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 @RestController
@@ -34,12 +36,30 @@ public class StockController {
         }
     }
 
+    @PostMapping("/loadFromUrl")
+    public String loadFromUrl(){
+        String urlString = "https://bootcamp-training-files.cfapps.io/week2/week2-stocks.json";
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<Stock>> typeReference = new TypeReference<List<Stock>>(){};
+        try {
+            URL url = new URL(urlString);
+            InputStream inputStream = (InputStream)url.getContent();
+            List<Stock> stocks = objectMapper.readValue(inputStream, typeReference);
+            stockService.save(stocks);
+            return("Data was loaded into the database!");
+        } catch (MalformedURLException e) {
+            return("Data was not uploaded due to issue with URL: " + e);
+        } catch (IOException e) {
+            return("Data was not uploaded due to issue with reading content: " + e);
+        }
+    }
+
     @GetMapping(path="/{symbol}/{date}")
     public Summary daySummary(@PathVariable("symbol") String symbol, @PathVariable("date") String date){
         Double closingPrice = stockService.findDailyClosingPriceBySymbolAndDate(symbol, date);
-        Double max = null; Double min = null; long volume = 0;
-        List<Object[]> both = stockService.findDailySummaryBySymbolAndDate(symbol, date);
-        for(Object o[]: both){
+        Double max = 0.0; Double min = 0.0; long volume = 0;
+        List<Object[]> summary = stockService.findDailySummaryBySymbolAndDate(symbol, date);
+        for(Object o[]: summary){
             max = (Double) o[0];
             min = (Double) o[1];
             volume = (long) o[2];
@@ -50,9 +70,9 @@ public class StockController {
     @GetMapping(path="/month/{symbol}/{date}")
     public Summary monthSummary(@PathVariable("symbol") String symbol, @PathVariable("date") String date){
         Double closingPrice = stockService.findMonthlyClosingPriceBySymbolAndDate(symbol, date);
-        Double max = null; Double min = null; long volume = 0;
-        List<Object[]> both = stockService.findMonthlySummaryBySymbolAndDate(symbol, date);
-        for(Object o[]: both){
+        Double max = 0.0; Double min = 0.0; long volume = 0;
+        List<Object[]> summary = stockService.findMonthlySummaryBySymbolAndDate(symbol, date);
+        for(Object o[]: summary){
             max = (Double) o[0];
             min = (Double) o[1];
             volume = (long) o[2];
