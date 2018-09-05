@@ -21,17 +21,27 @@ public class StockService {
         stockRepository.saveAll(stocks);
     }
 
-    public Double findClosingPriceBySymbolAndDate(String symbol, String date) {
+    public Double findDailyClosingPriceBySymbolAndDate(String symbol, String date) {
         Date dateD = convertDate(date);
-        return stockRepository.findClosingPriceBySymbolAndDate(symbol, dateD).get(0);
+        return stockRepository.findDailyClosingPriceBySymbolAndDate(symbol, dateD).get(0);
     }
 
-    public List<Object[]> findSummaryBySymbolAndDate(String symbol, String date) {
+    public Double findMonthlyClosingPriceBySymbolAndDate(String symbol, String date) {
         Date dateD = convertDate(date);
-        return stockRepository.findSummaryBySymbolAndDate(symbol, dateD);
+        return stockRepository.findMonthlyClosingPriceBySymbolAndDate(symbol, dateD).get(0);
     }
 
-    public Date convertDate(String date){
+    public List<Object[]> findDailySummaryBySymbolAndDate(String symbol, String date) {
+        Date dateD = convertDate(date);
+        return stockRepository.findDailySummaryBySymbolAndDate(symbol, dateD);
+    }
+
+    public List<Object[]> findMonthlySummaryBySymbolAndDate(String symbol, String date) {
+        Date dateD = convertDate(date);
+        return stockRepository.findMonthlySummaryBySymbolAndDate(symbol, dateD);
+    }
+
+    private Date convertDate(String date){
         Date dateD= null;
         try {
             dateD = new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -40,4 +50,5 @@ public class StockService {
         }
         return dateD;
     }
+
 }
