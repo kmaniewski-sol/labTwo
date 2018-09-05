@@ -3,7 +3,7 @@ package week2.exercise.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DailySummary {
+public class Summary {
 
     public final String symbol;
     public final String date;
@@ -13,9 +13,9 @@ public class DailySummary {
     public final  double closingPrice;
 
     @JsonCreator
-    public DailySummary(@JsonProperty("symbol") String symbol, @JsonProperty("date") String date,
-                        @JsonProperty("maxPrice") double maxPrice, @JsonProperty("minPrice") double minPrice,
-                        @JsonProperty("sumVolume") long sumVolume, @JsonProperty("closingPrice") double closingPrice){
+    public Summary(@JsonProperty("symbol") String symbol, @JsonProperty("date") String date,
+                   @JsonProperty("maxPrice") double maxPrice, @JsonProperty("minPrice") double minPrice,
+                   @JsonProperty("sumVolume") long sumVolume, @JsonProperty("closingPrice") double closingPrice){
         this.symbol = symbol;
         this.date = date;
         this.maxPrice = maxPrice;
