@@ -21,24 +21,14 @@ public class StockService {
         stockRepository.saveAll(stocks);
     }
 
-    public Double findMaxPriceBySymbolAndDate(String symbol, String date) {
-        Date dateD = convertDate(date);
-        return stockRepository.findMaxPriceBySymbolAndDate(symbol, dateD);
-    }
-
-    public Double findMinPriceBySymbolAndDate(String symbol, String date) {
-        Date dateD = convertDate(date);
-        return stockRepository.findMinPriceBySymbolAndDate(symbol, dateD);
-    }
-
-    public int findSumVolumeBySymbolAndDate(String symbol, String date) {
-        Date dateD = convertDate(date);
-        return stockRepository.findSumVolumeBySymbolAndDate(symbol, dateD);
-    }
-
     public Double findClosingPriceBySymbolAndDate(String symbol, String date) {
         Date dateD = convertDate(date);
         return stockRepository.findClosingPriceBySymbolAndDate(symbol, dateD).get(0);
+    }
+
+    public List<Object[]> findSummaryBySymbolAndDate(String symbol, String date) {
+        Date dateD = convertDate(date);
+        return stockRepository.findSummaryBySymbolAndDate(symbol, dateD);
     }
 
     public Date convertDate(String date){

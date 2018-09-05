@@ -36,10 +36,14 @@ public class StockController {
 
     @GetMapping(path="/{symbol}/{date}")
     public DailySummary dSummary(@PathVariable("symbol") String symbol, @PathVariable("date") String date){
-        Double max = stockService.findMaxPriceBySymbolAndDate(symbol, date);
-        Double min = stockService.findMinPriceBySymbolAndDate(symbol, date);
-        int volume = stockService.findSumVolumeBySymbolAndDate(symbol, date);
         Double closingPrice = stockService.findClosingPriceBySymbolAndDate(symbol, date);
+        Double max = null; Double min = null; long volume = 0;
+        List<Object[]> both = stockService.findSummaryBySymbolAndDate(symbol, date);
+        for(Object o[]: both){
+            max = (Double) o[0];
+            min = (Double) o[1];
+            volume = (long) o[2];
+        }
         return new DailySummary(symbol, date, max, min, volume, closingPrice);
     }
 }
