@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Summary {
-
     public final String symbol;
     public final String date;
     public final  double maxPrice;

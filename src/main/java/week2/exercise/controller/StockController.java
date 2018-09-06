@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import week2.exercise.domain.Summary;
 import week2.exercise.domain.Stock;
 import week2.exercise.service.StockService;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @RestController
 public class StockController {
-
     private StockService stockService;
 
     public StockController(StockService stockService){

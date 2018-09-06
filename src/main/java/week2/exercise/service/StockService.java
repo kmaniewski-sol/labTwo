@@ -3,7 +3,6 @@ package week2.exercise.service;
 import org.springframework.stereotype.Service;
 import week2.exercise.domain.Stock;
 import week2.exercise.repository.StockRepository;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,9 +16,7 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
-    public void save(List<Stock> stocks) {
-        stockRepository.saveAll(stocks);
-    }
+    public void save(List<Stock> stocks) { stockRepository.saveAll(stocks); }
 
     public Double findDailyClosingPriceBySymbolAndDate(String symbol, String date) {
         Date dateD = convertDate(date);
@@ -42,13 +39,10 @@ public class StockService {
     }
 
     private Date convertDate(String date){
-        Date dateD= null;
         try {
-            dateD = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
         } catch (ParseException e) {
-            e.printStackTrace();
+            return null;
         }
-        return dateD;
     }
-
 }
